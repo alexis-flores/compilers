@@ -15,6 +15,10 @@ using namespace std;
 %option nounput noyywrap
 %%
 
+0[xX][0-9a-fA-F]+			{ cout << "hexadecimal " << yytext << endl; }
+0[0-7]*					{ cout << "octal " << yytext << endl; }
+[1-9][0-9]*				{ cout << "decimal " << yytext << endl; }
+
 "auto"		                    { cout << "keyword " << yytext << endl; }
 "break"                             { cout << "keyword " << yytext << endl; }
 "case"                              { cout << "keyword " << yytext << endl; }
@@ -49,6 +53,50 @@ using namespace std;
 "while"                             { cout << "keyword " << yytext << endl; }
 
 [a-zA-Z_][a-zA-Z_0-9]*			{ cout << "identifier " << yytext << endl; }
+
+"="					{ cout << "operator " << yytext << endl; }
+"||"					{ cout << "operator " << yytext << endl; }
+"&&"					{ cout << "operator " << yytext << endl; }
+"|"					{ cout << "operator " << yytext << endl; }
+"=="					{ cout << "operator " << yytext << endl; }
+"!="					{ cout << "operator " << yytext << endl; }
+"<"					{ cout << "operator " << yytext << endl; }
+">"					{ cout << "operator " << yytext << endl; }
+"<="					{ cout << "operator " << yytext << endl; }
+">="					{ cout << "operator " << yytext << endl; }
+"+"					{ cout << "operator " << yytext << endl; }
+"-"					{ cout << "operator " << yytext << endl; }
+"*"					{ cout << "operator " << yytext << endl; }
+"/"					{ cout << "operator " << yytext << endl; }
+"%"					{ cout << "operator " << yytext << endl; }
+"&"					{ cout << "operator " << yytext << endl; }
+"!"					{ cout << "operator " << yytext << endl; }
+"++"					{ cout << "operator " << yytext << endl; }
+"--"					{ cout << "operator " << yytext << endl; }
+"->"					{ cout << "operator " << yytext << endl; }
+"("					{ cout << "operator " << yytext << endl; }
+")"					{ cout << "operator " << yytext << endl; }
+"["					{ cout << "operator " << yytext << endl; }
+"]"					{ cout << "operator " << yytext << endl; }
+"{"					{ cout << "operator " << yytext << endl; }
+"}"					{ cout << "operator " << yytext << endl; }
+";"					{ cout << "operator " << yytext << endl; }
+":"					{ cout << "operator " << yytext << endl; }
+"."					{ cout << "operator " << yytext << endl; }
+","					{ cout << "operator " << yytext << endl; }
+
+\"([^"\\\n]|\\[^\n])*\"			{ cout << "string " << yytext << endl; }
+'([^'\\\n]|\\[^\n])+'			{ cout << "character " << yytext << endl; }
+
+"/*"	{
+	int c, prev = 0;
+	while ((c = yyinput()) != EOF && c != 0) {
+		if (prev == '*' && c == '/')
+			break;
+		prev = c;
+
+	}
+}
 
 [ \f\n\r\t\v]+			        {/* ignored */}
 
